@@ -227,9 +227,9 @@ module Octopus
       ActiveRecord::ConnectionAdapters::ConnectionPool.new(spec)
     end
 
-    def resolve_string_connection(key)
+    def resolve_string_connection(spec)
       resolver = ActiveRecord::ConnectionAdapters::ConnectionSpecification::Resolver.new({})
-      HashWithIndifferentAccess.new(resolver.spec(spec).config)
+      HashWithIndifferentAccess.new(resolver.db_config[spec].configuration_hash)
     end
 
     def structurally_slave?(config)
