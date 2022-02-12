@@ -255,7 +255,7 @@ module Octopus
           yield(pool)
         rescue => e
           if Octopus.robust_environment?
-            Octopus.logger.error "Error on pool (spec: #{pool.spec}): #{e.message}"
+            Octopus.logger.error "Error on pool (spec: #{pool.db_config.configuration_hash}): #{e.message}"
           else
             raise
           end

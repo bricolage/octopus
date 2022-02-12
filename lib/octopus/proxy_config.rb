@@ -138,7 +138,7 @@ module Octopus
       self.shards_slave_groups = HashWithIndifferentAccess.new
       self.slave_groups = HashWithIndifferentAccess.new
       self.groups = {}
-      self.config = ActiveRecord::Base.connection_pool_without_octopus.spec.config
+      self.config = ActiveRecord::Base.connection_pool_without_octopus.db_config.configuration_hash
 
       unless config.nil?
         self.entire_sharded = config['entire_sharded']
@@ -227,7 +227,7 @@ module Octopus
       ActiveRecord::ConnectionAdapters::ConnectionPool.new(spec)
     end
 
-    def resolve_string_connection(spec)
+    def resolve_string_connection(key)
       resolver = ActiveRecord::ConnectionAdapters::ConnectionSpecification::Resolver.new({})
       HashWithIndifferentAccess.new(resolver.spec(spec).config)
     end
